@@ -1,0 +1,32 @@
+<div class="bootstrap-wrapper">
+  <div class="container mt">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="container text-center">
+          <h2 style="color:#673ab7;  font-weight:600;">Login</h2>
+        </div>
+        <form (ngSubmit)="login()">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput required name="email" [(ngModel)]="credentials.email"/>
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput required name="password" [(ngModel)]="credentials.password"/>
+          </mat-form-field>
+
+          <div class="container text-center">
+            <button type="submit" mat-raised-button color="primary">Login</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
