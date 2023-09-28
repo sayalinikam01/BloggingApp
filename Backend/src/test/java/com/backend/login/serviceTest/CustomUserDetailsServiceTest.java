@@ -1,6 +1,4 @@
 package com.backend.login.serviceTest;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import com.backend.login.Services.CustomUserDetailsService;
 import com.backend.login.entities.User;
@@ -10,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class CustomUserDetailsServiceTest {
 
@@ -25,7 +26,6 @@ public class CustomUserDetailsServiceTest {
 
     @Test
     public void testLoadUserByUsername_UserFound() {
-
         String username = "sayali@gmail.com";
         User user = new User();
         user.setEmail(username);
@@ -33,14 +33,13 @@ public class CustomUserDetailsServiceTest {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        verify(userRepository,times(1)).findByEmail(username);
+        verify(userRepository, times(1)).findByEmail(username);
         assertNotNull(userDetails);
         assertEquals(username, userDetails.getUsername());
     }
 
     @Test
     public void testLoadUserByUsername_UserNotFound() {
-
         String username = "nonexistent@gmail.com";
         when(userRepository.findByEmail(username)).thenReturn(Optional.empty());
 
@@ -50,6 +49,4 @@ public class CustomUserDetailsServiceTest {
         );
         assertEquals("User not found", exception.getMessage());
     }
-
-
 }

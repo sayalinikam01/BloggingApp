@@ -7,15 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -33,29 +28,21 @@ class JwtHelperTest {
 
     @Test
     void testgenerateToken_Success() {
+        User user = new User("id123", "user@gmail.com", "password");
 
-        User user=new User("id123","user@gmail.com","password");
-
-
-        String token=jwtHelper.generateToken(user);
-        String username=jwtHelper.getUsernameFromToken(token);
+        String token = jwtHelper.generateToken(user);
+        String username = jwtHelper.getUsernameFromToken(token);
 
         assertNotNull(token);
-        assertEquals("user@gmail.com",username);
-
-
+        assertEquals("user@gmail.com", username);
     }
 
-  //  MalformedJwtException
     @Test
     void testvalidateToken() {
+        User user = new User("id123", "user@gmail.com", "password");
+        String token = jwtHelper.generateToken(user);
 
-        User user=new User("id123","user@gmail.com","password");
-        String token=jwtHelper.generateToken(user);
-
-        Boolean result=jwtHelper.validateToken(token,user);
-
+        Boolean result = jwtHelper.validateToken(token, user);
         assertTrue(result);
-
     }
 }
