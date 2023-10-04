@@ -1,0 +1,70 @@
+
+/* Style for the blog card container */
+.blog-list {
+  display: flex;
+  flex-direction: column; /* Display cards in a single column */
+  gap: 20px; /* Adjust the gap as needed */
+   width:75%;
+    justify-content: center; /* Center horizontally */
+     align-items: center;
+}
+
+/* Style for individual blog cards */
+.blog-card {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Take the full width of the container */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  transition: transform 0.2s ease-in-out;
+  padding: 16px;
+  margin-bottom:20px
+
+}
+
+/* Hover effect to scale the card slightly on hover */
+.blog-card:hover {
+  transform: scale(1.02);
+}
+
+/* Style for the blog card header */
+mat-card-header {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding:10px;
+
+}
+
+mat-card-footer {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding:10px;
+   margin-top: 8px;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
+/* Space between email and icons in the header */
+mat-icon {
+  margin-right: 8px;
+}
+
+/* Style for the blog title */
+.blog-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 12px;
+  padding-left:13px;
+}
+
+/* Style for the blog content */
+.blog-content {
+  margin-top: 8px;
+
+  color: #555;
+}

@@ -29,8 +29,8 @@ public class PostService {
 
         newpost.setImage(newpost.getImage());
         LocalDate today = LocalDate.now();
-        newpost.setCreatedDate(valueOf(today));
-        newpost.setUpdatedDate(valueOf(today));
+       // newpost.setCreatedDate(valueOf(today));
+       // newpost.setUpdatedDate(valueOf(today));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User LoggedInUser = userRepository.findByEmail(authentication.getName()).get();
@@ -59,7 +59,7 @@ public class PostService {
         initialpost.setContent(updatedPost.getContent());
         initialpost.setImage(updatedPost.getImage());
         LocalDate today = LocalDate.now();
-        updatedPost.setUpdatedDate(valueOf(today));
+       // initialpost.setUpdatedDate(valueOf(today));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User LoggedInUser = userRepository.findByEmail(authentication.getName()).get();

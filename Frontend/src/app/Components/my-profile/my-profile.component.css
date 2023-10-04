@@ -1,0 +1,25 @@
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+
+.left-column {
+  flex: 1;
+  margin-right: 30px;
+  margin-left:20px;
+  margin-top:60px;
+}
+
+.right-column {
+  flex: 3;
+}
+
+
+p {
+  font-size: 25px;
+  line-height: 1.5;
+  margin-top: 50px;
+  color: #333; /* Text color */
+}

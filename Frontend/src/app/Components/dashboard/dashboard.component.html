@@ -1,14 +1,13 @@
-<div class="bootstrap-wrapper">
-  <div class="row">
-    <div class="container text-center mt">
-      <!--    <button type="submit" mat-icon-button color="primary"  aria-label="Create Post">-->
-      <!--      <mat-icon>add_box</mat-icon>-->
-      <!--    </button>-->
-      <button type="submit" mat-raised-button color="primary">Create Post</button>
-    </div>
-  </div>
+<div class="bootstrap-wrapper" style="padding-top:15px;">
   <div class="container mt">
-    <h1 class="text-center">User Feed...</h1>
+<!--    <h1 class="text-center">User Feed</h1>-->
+  </div>
+  <div class="col-md-8 offset-md-3">
+
+<!--    <button mat-raised-button color="primary"  style="margin-bottom:20px">New Post<mat-icon>add_box</mat-icon></button>-->
+<!--    <app-create-blog *ngIf="showPopup" class="full-width" ></app-create-blog>-->
+
+    <app-post [blogPosts]="blogPosts" class="blog-card"></app-post>
   </div>
 </div>
 

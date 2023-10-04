@@ -1,14 +1,13 @@
 package com.backend.login.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
-import jakarta.persistence.Entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,12 +23,13 @@ public class User implements UserDetails {
     @Column(name="userId")
     private String userId;
    // private String name;
-   @Column(name="email")
-   private String email;
+    @Column(name="email")
+    private String email;
     @Column(name="password")
-
     private String password;
 
+//    @OneToMany(mappedBy = "user", orphanRemoval = true,cascade = CascadeType.ALL)
+//    private List<Post> posts = new ArrayList<>();
 
 
 

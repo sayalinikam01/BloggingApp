@@ -22,8 +22,7 @@ export class LoginComponent {
     if (this.credentials.email !=undefined && this.credentials.password !=undefined && this.credentials.email !='' && this.credentials.password !=''  ) {
       this.LoginService.generateToken(this.credentials).subscribe(
           (response:any)=>{
-            this.LoginService.LoginUser(response.jwtToken);
-            console.log(response);
+            this.LoginService.LoginUser(response.jwtToken,response.username);
             window.location.href="/feed";
           },
           error=>{

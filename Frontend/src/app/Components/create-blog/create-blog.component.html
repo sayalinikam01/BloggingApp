@@ -1,0 +1,20 @@
+<div class="centered-container">
+<mat-card class="create-blog-card">
+<!--  <mat-card-title>Create Blog</mat-card-title>-->
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field >
+        <input matInput placeholder="Title" name="title" [(ngModel)]="formData.title" required>
+      </mat-form-field>
+
+      <mat-form-field >
+        <textarea matInput placeholder="Content" name="content" [(ngModel)]="formData.content" [maxlength]="1000" required></textarea>
+      </mat-form-field>
+
+<!--      <input type="file" (change)="onFileSelected($event)" accept=".jpg, .png">-->
+
+      <button type="submit" mat-raised-button color="primary" >Post</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+</div>

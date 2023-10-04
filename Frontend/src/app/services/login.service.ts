@@ -15,9 +15,10 @@ export class LoginService {
         return this.http.post(`${this.url}/auth/login`,credentials)
   }
 
-  LoginUser(token)
+  LoginUser(token,user)
   {
       localStorage.setItem("token",token)
+      localStorage.setItem("user",user)
       console.log("set")
       return true;
   }

@@ -1,0 +1,18 @@
+<div class="bootstrap-wrapper ">
+  <div class="blog-list">
+    <mat-card *ngFor="let posts of blogPosts" class="blog-card">
+        <mat-card-header>
+          <mat-icon color="primary">person</mat-icon>&nbsp;{{this.posts.user.email}}<span class="spacer"></span>
+          <button type="submit" mat-icon-button color="primary"  aria-label="Edit Post" *ngIf="isMyProfilePage" (click)="updatePost(this.posts)">
+            <mat-icon color="primary" >edit</mat-icon></button>
+          <button type="submit" mat-icon-button color="primary"  aria-label="Delete Post" *ngIf="isMyProfilePage" (click)="deletePostById(this.posts.postId)"  >
+            <mat-icon color="primary" >delete</mat-icon></button>
+        </mat-card-header>
+
+        <mat-card-title class="blog-title">{{this.posts.title }}</mat-card-title>
+        <mat-card-content class="blog-content"><p>{{ this.posts.content }}</p></mat-card-content>
+
+        <mat-card-footer> {{this.posts.createdDate| date: 'yyyy-MM-dd HH:mm:ss'}}</mat-card-footer>
+    </mat-card>
+      </div>
+</div>

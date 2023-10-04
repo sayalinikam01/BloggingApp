@@ -1,8 +1,13 @@
 <mat-toolbar color="primary">
-  <span> <a mat-icon-button routerLink="/">BloggingApp</a></span>
+  <span> <a mat-icon-button routerLink="/"><mat-icon>article</mat-icon>
+BloggingApp</a></span>
   <span class="spacer"></span>
-  <a *ngIf="!LoggedIn" mat-icon-button routerLink="/login" class="btn1" >Login</a>
-  <a *ngIf="LoggedIn" mat-icon-button class="btn"  routerLink="/myprofile">My Profile</a>
+
+  <a *ngIf="!LoggedIn" mat-icon-button routerLink="/login" class="btn1"  >Login</a>
+  <a *ngIf="LoggedIn && !isMyProfilePage " mat-icon-button class="btn"  routerLink="/myprofile">My Profile{{isMyProfilePage}}</a>
+  <a *ngIf="LoggedIn && !isMyFeedPage" mat-icon-button class="btn"  routerLink="/feed">My Feed</a>
   <a *ngIf="LoggedIn" mat-icon-button class="btn" (click)="logoutUser()">Logout</a>
+
+
 </mat-toolbar>
 

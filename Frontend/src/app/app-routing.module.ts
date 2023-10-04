@@ -21,11 +21,13 @@ const routes: Routes = [
         path:'feed',
         component:DashboardComponent,
         pathMatch:'full',
+        data: { isMyFeedPage: true },
         canActivate:[authGuard]
     },
     {
          path:'myprofile',
          component:MyProfileComponent,
+         data: { isMyProfilePage: true } ,
          pathMatch:'full',
          canActivate:[authGuard]
     },

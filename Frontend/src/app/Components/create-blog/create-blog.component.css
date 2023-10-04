@@ -1,0 +1,28 @@
+.create-blog-card{
+    width:800px;
+    height:600px;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-card-title{
+  margin:30px;
+  text-align: center;
+}
+
+
+mat-form-field {
+  margin-bottom:30px;
+  width:100%;
+  align:center;
+}
+
+
+button[type="submit"] {
+  align:center;
+}
+
+
+textarea {
+  min-height: 250px;
+}
