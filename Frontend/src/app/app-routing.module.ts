@@ -6,6 +6,9 @@ import { HomeComponent } from './Components/home/home.component'
 import { LoginComponent } from './Components/login/login.component'
 import { authGuard} from './services/auth.guard'
 import { MyProfileComponent } from './Components/my-profile/my-profile.component'
+import { RegisterComponent } from './Components/register/register.component';
+import { UserDetailsComponent } from './Components/user-details/user-details.component';
+
 const routes: Routes = [
     {
       path:'',
@@ -15,6 +18,18 @@ const routes: Routes = [
     {
        path:'login',
        component:LoginComponent,
+       pathMatch:'full'
+    },
+    {
+           path:'userdetails',
+           component:UserDetailsComponent,
+           pathMatch:'full',
+             canActivate:[authGuard]
+    },
+
+    {
+       path:'register',
+       component:RegisterComponent,
        pathMatch:'full'
     },
     {

@@ -9,11 +9,11 @@
      align-items: center;
 }
 
-/* Style for individual blog cards */
+/* Style for individual blog cardsbackground-color: #f4f4f4; */
 .blog-card {
   background-color: #f4f4f4;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%; /* Take the full width of the container */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
@@ -22,6 +22,12 @@
   margin-bottom:20px
 
 }
+.icons{
+border:none;background-color:white; color:#673ab7;
+
+
+}
+
 
 /* Hover effect to scale the card slightly on hover */
 .blog-card:hover {
@@ -67,4 +73,8 @@ mat-icon {
   margin-top: 8px;
 
   color: #555;
+}
+.post-image {
+  width: 50%;
+  height: auto;
 }

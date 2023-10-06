@@ -23,10 +23,19 @@ public class User implements UserDetails {
     @Column(name="userId")
     private String userId;
    // private String name;
-    @Column(name="email")
+    @Column(name="email",unique=true)
     private String email;
+
+    @Column(name="Name")
+    private String Name;
+
+    @Column(name="aboutMe",length = 200)
+    private String aboutMe;
+
     @Column(name="password")
     private String password;
+
+
 
 //    @OneToMany(mappedBy = "user", orphanRemoval = true,cascade = CascadeType.ALL)
 //    private List<Post> posts = new ArrayList<>();

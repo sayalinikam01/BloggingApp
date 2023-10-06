@@ -4,7 +4,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateBlogComponent} from '../create-blog/create-blog.component'
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-post',
@@ -17,12 +17,30 @@ export class PostComponent {
     @Input() blogPosts: any;
 
     isMyProfilePage!: boolean;
+    formattedDate: string="";
+    imgsrc:string="C://Users//sanika//OneDrive - SAS//Desktop//BloggingApp//BloggingApp//Backend//src//main//resources//static//Images//72e1a138-b9e8-44c2-a10e-befaa05c03a2-download.jpg";
 
     constructor(public dialog: MatDialog,private route: ActivatedRoute,private router: Router,private postService:PostService,private snackBar: MatSnackBar) {
       this.isMyProfilePage = this.route.snapshot.data['isMyProfilePage'];
+
     }
 
-    ngOnInit():void{}
+    ngOnInit():void{
+        //this.formattedDate = this.formatDate(this.blogPosts.createdDate);
+    }
+
+  formatDate(date: any): string {
+    const options: Intl.DateTimeFormatOptions = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric'
+        };
+
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+  }
+
 
     deletePostById(PostId: String)
     {
@@ -61,4 +79,20 @@ export class PostComponent {
          this.snackBar.open('Post Deleted', 'OK', {
          duration: 3000, });
      }
+
+    like(postId,reactionId){
+    console.log(postId,reactionId);
+    }
+    nolike=3;
+    heart(postId,reactionId){
+        console.log(postId,reactionId);
+        }
+
+    celebrate(postId,reactionId){
+     console.log(postId,reactionId);
+    }
+
+
+
+
 }

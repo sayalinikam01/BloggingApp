@@ -25,6 +25,9 @@ import { PostComponent } from './Components/post/post.component';
 import { CreateBlogComponent } from './Components/create-blog/create-blog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UserDetailsComponent } from './Components/user-details/user-details.component';
+import { RegisterComponent } from './Components/register/register.component';
+import { CommonModule } from '@angular/common';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -36,10 +39,11 @@ import { UserDetailsComponent } from './Components/user-details/user-details.com
     MyProfileComponent,
     PostComponent,
     CreateBlogComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    RegisterComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,CommonModule,MatSidenavModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,

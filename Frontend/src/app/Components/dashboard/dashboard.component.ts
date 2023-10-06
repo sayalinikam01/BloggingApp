@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { MatDialog } from '@angular/material/dialog';
+import { CreateBlogComponent } from '../create-blog/create-blog.component';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DashboardComponent {
   blogPosts: any[] = [];
 
-  constructor(private postService: PostService,private snackBar: MatSnackBar) {}
+  constructor(private postService: PostService,private snackBar: MatSnackBar,public dialog: MatDialog) {}
 
 
   ngOnInit(): void {
@@ -30,7 +32,24 @@ export class DashboardComponent {
        duration: 5000, });
   }
 
+showPopup = false;
+openPopupForm() {
+      const dialogRef = this.dialog.open(CreateBlogComponent, {
+        width: '800px',
+        height: '600px',
+    });
 
 
+    dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+         setTimeout(() => {
+                        window.location.href="/feed";
+         }, 2000);
+
+
+
+      });
+
+    }
 
 }

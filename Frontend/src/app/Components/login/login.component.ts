@@ -26,6 +26,8 @@ export class LoginComponent {
             window.location.href="/feed";
           },
           error=>{
+            this.credentials.email="";
+            this.credentials.password="";
             console.log(error);
             this.openLoginFailureAlert();
           })

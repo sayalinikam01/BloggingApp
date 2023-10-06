@@ -1,18 +1,41 @@
+<div class="details">
 <mat-card class="user-details-card">
+  <mat-card-header style="align-items:center;flex-direction:column;
+  justify-content:center;">
+  <div class="user-details-field ">
+    <span class="material-icons" style="border-style: solid; border-radius: 50%; border-width: 3px; padding: 6px;color:#673ab7;font-size:40px;"> person </span>
+  </div>
+  </mat-card-header>
   <mat-card-content class="user-details-content">
     <!--        <mat-icon color="primary">person_pin </mat-icon>-->
-    <div class="user-details-field">
-      <span class="material-icons" style="border-style: solid; border-radius: 50%; border-width: 3px; padding: 6px;color:#673ab7;font-size:40px;"> person </span>
-    </div>
+
     <div class="user-details-field">
       <span class="user-details-label">User :</span>
-      <span class="user-details-value">{{ user }}</span>
+      <span class="user-details-value">{{ User.email }}</span>
+    </div>
+    <div class="user-details-field">
+      <span class="user-details-label">Name :</span>
+      <span class="user-details-value">{{  User.name }}</span>
+    </div>
+    <div class="user-details-field">
+      <span class="user-details-label">About Me :</span>
+      <span class="user-details-value">{{ User.aboutMe }}</span>
     </div>
     <div class="user-details-field">
       <span class="user-details-label">Total Posts : </span>
       <span class="user-details-value"> </span>
     </div>
+    <div class="user-details-field">
+<!--      <span class="user-details-label">-->
+<!--&lt;!&ndash;         <button type="submit" mat-raised-button color="primary" (onclick)="route()"></button>&ndash;&gt;-->
+<!--        <a  class="btn"  routerLink="/myprofile">My posts</a>-->
+<!--      </span>-->
+
+
+    </div>
+
     <!-- Add more user details fields as needed -->
   </mat-card-content>
 </mat-card>
 
+</div>

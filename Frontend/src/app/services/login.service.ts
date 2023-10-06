@@ -11,8 +11,17 @@ export class LoginService {
 
   constructor(private http:HttpClient) { }
 
+  getUser(){
+        console.log("in get user")
+        return this.http.get('http://localhost:8081/getuser')
+    }
+
   generateToken(credentials:any){
         return this.http.post(`${this.url}/auth/login`,credentials)
+  }
+
+  RegisterUser(registrationData:any){
+       return this.http.post(`${this.url}/auth/register`,registrationData)
   }
 
   LoginUser(token,user)
@@ -42,6 +51,8 @@ export class LoginService {
   getToken(){
       return localStorage.getItem('token');
   }
+
+
 
 
 

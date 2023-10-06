@@ -1,28 +1,15 @@
-<!--<div class="bootstrap-wrapper">-->
-<!--  <div class="container mt">-->
-<!--    <h1 class="text-center">Profile Page {{user}}</h1>-->
-<!--  </div>-->
-<!--  <div class="col-lg-10 offset-md-2">-->
-
-<!--    <button mat-raised-button color="primary" (click)="openPopupForm()" style="margin-bottom:20px">Create Blog<mat-icon>add_box</mat-icon></button>-->
-<!--      <app-create-blog *ngIf="showPopup" class="full-width" ></app-create-blog>-->
-
-<!--    <app-post [blogPosts]="blogPosts" class="blog-card"></app-post>-->
-<!--  </div>-->
-<!--</div>-->
-
-<div class="profile-container">
+<div class="profile-container" style="margin-left:80px;">
   <!-- Left column for user details -->
-  <div class="left-column">
-    <app-user-details ></app-user-details>
+<!--  <div class="left-column">-->
+<!--    <app-user-details ></app-user-details>-->
 
-  </div>
+<!--  </div>-->
 
   <!-- Right column for blogs -->
-  <div class="right-column">
-    <div class="col-lg-10 offset-md-2">
-    <button mat-raised-button color="primary" (click)="openPopupForm()" style="margin-bottom:20px">New Post<mat-icon>add_box</mat-icon></button>
-          <app-create-blog *ngIf="showPopup" class="full-width" ></app-create-blog>
+<!--  <div class="right-column">-->
+<!--    <div class="col-md-3 offset-md-2">-->
+<!--    <button mat-raised-button color="primary" (click)="openPopupForm()" style="margin-bottom:20px">New Post<mat-icon>add_box</mat-icon></button>-->
+<!--          <app-create-blog *ngIf="showPopup" class="full-width" ></app-create-blog>-->
       <ng-container *ngIf="blogPosts.length === 0; else showBlogs">
         <p>No posts yet. Create post to express your thoughts and share with people.. </p>
       </ng-container>
@@ -30,8 +17,8 @@
       <ng-template #showBlogs>
         <app-post [blogPosts]="blogPosts" class="blog-card"></app-post>
       </ng-template>
-    </div>
+<!--    </div>-->
 
-  </div>
+<!--  </div>-->
   </div>
 

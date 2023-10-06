@@ -2,7 +2,7 @@
   <div class="container mt">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <div class="container text-center">
+        <div class="text-center">
           <h2 style="color:#673ab7;  font-weight:600;">Login</h2>
         </div>
         <form (ngSubmit)="login()">
@@ -16,7 +16,7 @@
             <input type="password" matInput required name="password" [(ngModel)]="credentials.password"/>
           </mat-form-field>
 
-          <div class="container text-center">
+          <div class="text-center">
             <button type="submit" mat-raised-button color="primary">Login</button>
           </div>
 

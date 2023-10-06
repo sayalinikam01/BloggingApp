@@ -2,7 +2,7 @@ import { Component,EventEmitter, Output,Inject  } from '@angular/core';
 import { MatDialogRef,MAT_DIALOG_DATA  } from '@angular/material/dialog';
 import { PostService } from '../../services/post.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-blog',
@@ -24,9 +24,11 @@ export class CreateBlogComponent {
       console.log(this.formData);
       if(this.formData.postId===undefined){
         this.postService.createPost(this.formData);
+        Swal.fire('Post Created!');
       }
       else {
       this.postService.updatePost(this.formData.postId,this.formData);
+      Swal.fire('Post Updated!');
       }
       this.dialogRef.close();
     }

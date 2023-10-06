@@ -1,6 +1,8 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewChild  } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,7 +13,7 @@ export class NavBarComponent implements OnInit
 {
    isMyProfilePage!: boolean;
    isMyFeedPage!:boolean;
-   constructor(private LoginService:LoginService,private route: ActivatedRoute) {
+   constructor(private LoginService:LoginService,private route: ActivatedRoute,private router: Router) {
 
    }
 
@@ -24,10 +26,12 @@ export class NavBarComponent implements OnInit
       this.isMyFeedPage = this.route.snapshot.data['isMyFeedPage'];
       console.log(this.isMyProfilePage)
    }
-
+ @ViewChild('drawer') drawer!: MatDrawer;
    logoutUser(){
       this.LoginService.logout();
-      location.reload();
+      this.drawer.close();
+      this.router.navigate(['/login']);
    }
+
 
 }

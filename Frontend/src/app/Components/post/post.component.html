@@ -1,8 +1,9 @@
-<div class="bootstrap-wrapper ">
+<div class="bootstrap-wrapper " xmlns="http://www.w3.org/2000/svg">
   <div class="blog-list">
     <mat-card *ngFor="let posts of blogPosts" class="blog-card">
         <mat-card-header>
-          <mat-icon color="primary">person</mat-icon>&nbsp;{{this.posts.user.email}}<span class="spacer"></span>
+          <span class="material-icons" style="border-style: solid; border-radius: 50%; border-width: 2px; padding: 3px;color:#673ab7;font-size:25px; margin-right:10px;"> person </span>
+          &nbsp;{{this.posts.user.name}}<br>{{formatDate(posts.createdDate)}}<span class="spacer"></span>
           <button type="submit" mat-icon-button color="primary"  aria-label="Edit Post" *ngIf="isMyProfilePage" (click)="updatePost(this.posts)">
             <mat-icon color="primary" >edit</mat-icon></button>
           <button type="submit" mat-icon-button color="primary"  aria-label="Delete Post" *ngIf="isMyProfilePage" (click)="deletePostById(this.posts.postId)"  >
@@ -10,9 +11,19 @@
         </mat-card-header>
 
         <mat-card-title class="blog-title">{{this.posts.title }}</mat-card-title>
-        <mat-card-content class="blog-content"><p>{{ this.posts.content }}</p></mat-card-content>
+        <mat-card-content class="blog-content">
+                <p>{{ this.posts.content }}</p>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7ohAt8p0iQHcqb3PmqiGMGSwd1i8aUj-drc0TyJodxCxtNHHfWpqV1zPcapdPm-_7AF0&usqp=CAU" alt="Post Image" class="post-image" />
+        </mat-card-content>
 
-        <mat-card-footer> {{this.posts.createdDate| date: 'yyyy-MM-dd HH:mm:ss'}}</mat-card-footer>
+      <mat-card-footer>
+        <button class="icons" type="button" mat-button (click)="like(this.posts.postId,1)" > <mat-icon >thumb_up</mat-icon>{{nolike}}</button>
+        <button class="icons" type="button" mat-button (click)="heart(this.posts.postId,2)"> <mat-icon>favorite</mat-icon>{{nolike}}</button>
+        <button class="icons" type="button" mat-button (click)="celebrate(this.posts.postId,3)"><span class="material-icons" color="primary" style="padding-bottom:5px;">celebration</span>{{nolike}}</button>
+
+
+      </mat-card-footer>
+
     </mat-card>
       </div>
 </div>
