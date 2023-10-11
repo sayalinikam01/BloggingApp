@@ -1,11 +1,11 @@
-import { Component,Input ,OnInit} from '@angular/core';
+import { Component,Input ,OnInit,EventEmitter ,Output} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute,Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateBlogComponent} from '../create-blog/create-blog.component'
 import { DatePipe } from '@angular/common';
-
+import {Post} from '../../models/post.model';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -14,19 +14,17 @@ import { DatePipe } from '@angular/common';
 
 export class PostComponent {
 
-    @Input() blogPosts: any;
+    @Input() blogPosts: Post[]=[];
 
     isMyProfilePage!: boolean;
     formattedDate: string="";
-    imgsrc:string="C://Users//sanika//OneDrive - SAS//Desktop//BloggingApp//BloggingApp//Backend//src//main//resources//static//Images//72e1a138-b9e8-44c2-a10e-befaa05c03a2-download.jpg";
+
 
     constructor(public dialog: MatDialog,private route: ActivatedRoute,private router: Router,private postService:PostService,private snackBar: MatSnackBar) {
       this.isMyProfilePage = this.route.snapshot.data['isMyProfilePage'];
-
     }
 
     ngOnInit():void{
-        //this.formattedDate = this.formatDate(this.blogPosts.createdDate);
     }
 
   formatDate(date: any): string {
@@ -42,12 +40,14 @@ export class PostComponent {
   }
 
 
+
     deletePostById(PostId: String)
     {
         this.postService.deletePost(PostId);
         this.deletePostFrontend(PostId);
         this.DeletedMsg();
     }
+
 
     updatePost(postToUpdate){
         console.log(postToUpdate);
@@ -56,11 +56,16 @@ export class PostComponent {
                 height: '600px',
                 data:postToUpdate,
         });
+     dialogRef.afterClosed().subscribe(result => {
 
-        dialogRef.afterClosed().subscribe(result => {
-                  console.log('The dialog was closed');
-                   window.location.href="/myprofile";
-                //  this.router.navigate(['/myprofile']);
+         this.postService.getPosts().subscribe(
+           (posts:any[]) => {
+              this.blogPosts=posts.filter(post => post.user.email === localStorage.getItem("user"));
+              this.blogPosts.forEach(post => {
+              this.postService.getTotReactions(post);}
+           ); } );
+
+
         });
     }
 
@@ -81,17 +86,53 @@ export class PostComponent {
      }
 
     like(postId,reactionId){
-    console.log(postId,reactionId);
+     this.postService.addReaction(postId,reactionId).subscribe(
+           (response:any)=>{
+              const post=this.blogPosts.find((post) => post.postId === postId);
+              if(post) {
+              post.totLikes=response.count;
+              post.likedByUser=true;
+             }
+              else  console.log("count", response.count);
+
+           },
+           error=>{
+                console.log("error:",error)
+           });;
     }
-    nolike=3;
-    heart(postId,reactionId){
-        console.log(postId,reactionId);
-        }
+
+
+  heart(postId,reactionId){
+      this.postService.addReaction(postId,reactionId).subscribe(
+      (response:any)=>{
+          const post=this.blogPosts.find((post) => post.postId === postId);
+          if(post) {
+          post.totHearts=response.count;
+          post.heartByUser=true;
+          }
+          else  console.log("count", response.count);
+      },
+      error=>{
+           console.log("error:",error)
+      });;
+    }
+
 
     celebrate(postId,reactionId){
-     console.log(postId,reactionId);
+     this.postService.addReaction(postId,reactionId).subscribe(
+           (response:any)=>{
+                const post=this.blogPosts.find((post) => post.postId === postId);
+                if(post) {
+                post.totCelebration=response.count;
+                post.celebrateByUser=true;
+                }
+                else  console.log("count", response.count);
+           },
+           error=>{
+                console.log("error:",error)
+           });;
     }
-
+//
 
 
 

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent {
-      //user=localStorage.getItem("user")
+
     User = {
             name: '',
             email: '',
@@ -23,18 +23,12 @@ export class UserDetailsComponent {
             this.User.name=response.name;
             this.User.email=response.email;
             this.User.aboutMe=response.aboutMe;
-
         },
         (error)=>{
              console.log("error",error);
         })
      }
 
-    //  totalPosts=localStorage.getItem("totalPosts")
-   //  @Input() totalposts: number=0;
 
-    route(){
-        this.router.navigate(['/feed']);
-       }
 
 }

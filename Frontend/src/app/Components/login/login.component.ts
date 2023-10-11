@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +15,7 @@ export class LoginComponent {
       password: '',
   }
 
-  constructor(private LoginService:LoginService,private snackBar: MatSnackBar) {}
+  constructor(private LoginService:LoginService,private snackBar: MatSnackBar,private router: Router) {}
 
   login() {
 
@@ -23,7 +23,7 @@ export class LoginComponent {
       this.LoginService.generateToken(this.credentials).subscribe(
           (response:any)=>{
             this.LoginService.LoginUser(response.jwtToken,response.username);
-            window.location.href="/feed";
+            this.router.navigate(['/feed']);
           },
           error=>{
             this.credentials.email="";

@@ -1,5 +1,16 @@
-<app-nav-bar></app-nav-bar>
-<router-outlet></router-outlet>
+
+<ng-container *ngIf="!isLoginandRegisterPage()">
+  <app-nav-bar></app-nav-bar>
+  <app-side-nav></app-side-nav>
+
+</ng-container>
+
+<ng-container *ngIf="isLoginandRegisterPage()">
+
+  <router-outlet>
+  </router-outlet>
+</ng-container>
+
 
 
 

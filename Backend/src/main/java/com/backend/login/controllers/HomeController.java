@@ -17,10 +17,10 @@ public class HomeController {
     @Autowired
     private UserService userservice;
 
-    @GetMapping("/user")
-    public List<User> getUser() {
-        return userservice.getUser();
-    }
+//    @GetMapping("/user")
+//    public List<User> getUser() {
+//        return userservice.getUser();
+//    }
 
 
 }

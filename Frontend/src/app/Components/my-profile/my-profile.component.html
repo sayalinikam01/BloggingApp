@@ -13,12 +13,10 @@
       <ng-container *ngIf="blogPosts.length === 0; else showBlogs">
         <p>No posts yet. Create post to express your thoughts and share with people.. </p>
       </ng-container>
-      <!-- If there are blogs, display them -->
+
       <ng-template #showBlogs>
         <app-post [blogPosts]="blogPosts" class="blog-card"></app-post>
       </ng-template>
-<!--    </div>-->
 
-<!--  </div>-->
   </div>
 

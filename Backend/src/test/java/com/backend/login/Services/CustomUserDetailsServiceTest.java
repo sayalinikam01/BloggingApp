@@ -1,6 +1,5 @@
-package com.backend.login.serviceTest;
+package com.backend.login.Services;
 
-import com.backend.login.Services.CustomUserDetailsService;
 import com.backend.login.entities.User;
 import com.backend.login.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,17 +28,18 @@ public class CustomUserDetailsServiceTest {
         String username = "sayali@gmail.com";
         User user = new User();
         user.setEmail(username);
+        //GIVEN
         when(userRepository.findByEmail(username)).thenReturn(Optional.of(user));
-
+        //WHEN
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
+        //THEN
         verify(userRepository, times(1)).findByEmail(username);
         assertNotNull(userDetails);
         assertEquals(username, userDetails.getUsername());
     }
 
     @Test
-    public void testLoadUserByUsername_UserNotFound() {
+    public void should_throwException_whenUserNotFound() {
         String username = "nonexistent@gmail.com";
         when(userRepository.findByEmail(username)).thenReturn(Optional.empty());
 

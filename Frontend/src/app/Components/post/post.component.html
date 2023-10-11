@@ -11,15 +11,25 @@
         </mat-card-header>
 
         <mat-card-title class="blog-title">{{this.posts.title }}</mat-card-title>
-        <mat-card-content class="blog-content">
+
+<!--      <img mat-card-lg-image [src]="'http://localhost:8081' + this.posts.image" alt="Post Image" class="post-image"  style="  background-size: cover;"/>-->
+
+      <mat-card-content class="blog-content" >
                 <p>{{ this.posts.content }}</p>
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7ohAt8p0iQHcqb3PmqiGMGSwd1i8aUj-drc0TyJodxCxtNHHfWpqV1zPcapdPm-_7AF0&usqp=CAU" alt="Post Image" class="post-image" />
+
         </mat-card-content>
 
+      <img mat-card-image [src]="'http://localhost:8081' + this.posts.image" alt="Post Image">
+
+
+      <!--     <div class="image-wrapper">-->
+<!--      </div>-->
+
+
       <mat-card-footer>
-        <button class="icons" type="button" mat-button (click)="like(this.posts.postId,1)" > <mat-icon >thumb_up</mat-icon>{{nolike}}</button>
-        <button class="icons" type="button" mat-button (click)="heart(this.posts.postId,2)"> <mat-icon>favorite</mat-icon>{{nolike}}</button>
-        <button class="icons" type="button" mat-button (click)="celebrate(this.posts.postId,3)"><span class="material-icons" color="primary" style="padding-bottom:5px;">celebration</span>{{nolike}}</button>
+        <button class="icons" type="button" mat-button (click)="like(this.posts.postId,1)"  [style.color]="this.posts.likedByUser ? '#673ab7' : 'rgba(0,0,0,0.5)'" ><mat-icon >thumb_up</mat-icon>{{this.posts.totLikes}}</button>
+        <button class="icons" type="button" mat-button (click)="heart(this.posts.postId,2)" [style.color]="this.posts.heartByUser ? '#673ab7' : 'rgba(0,0,0,0.5)'" > <mat-icon>favorite</mat-icon>{{this.posts.totHearts}}</button>
+        <button class="icons" type="button" mat-button (click)="celebrate(this.posts.postId,3)" [style.color]="this.posts.celebrateByUser ? '#673ab7' : 'rgba(0,0,0,0.5)'" ><span class="material-icons" color="primary" style="padding-bottom:5px;">celebration</span>{{this.posts.totCelebration}}</button>
 
 
       </mat-card-footer>

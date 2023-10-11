@@ -1,5 +1,6 @@
 package com.backend.login.controllers;
 
+import com.backend.login.Services.ImageService;
 import com.backend.login.Services.PostService;
 import com.backend.login.entities.Post;
 import com.backend.login.repositories.PostRepository;
@@ -23,6 +24,9 @@ public class PostController {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    public ImageService imageService;
 
     @PostMapping("/posts")
     public ResponseEntity<?> createPost(@RequestBody Post newPost) {

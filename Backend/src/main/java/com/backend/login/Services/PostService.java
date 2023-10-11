@@ -5,11 +5,13 @@ import com.backend.login.entities.User;
 import com.backend.login.repositories.PostRepository;
 import com.backend.login.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -23,17 +25,16 @@ public class PostService {
     @Autowired
     public PostRepository postRepository;
 
+    @Autowired
+    public ImageService imageService;
+    @Autowired
+    UserService userService;
+
     public void createPost(Post newpost) {
 
         newpost.setPostId((UUID.randomUUID().toString()));
-
         newpost.setImage(newpost.getImage());
-        LocalDate today = LocalDate.now();
-       // newpost.setCreatedDate(valueOf(today));
-       // newpost.setUpdatedDate(valueOf(today));
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User LoggedInUser = userRepository.findByEmail(authentication.getName()).get();
+        User LoggedInUser = userService.getLoggedInUser();
         newpost.setUser(LoggedInUser);
 
         postRepository.save(newpost);
@@ -42,13 +43,16 @@ public class PostService {
     public void deletePost(String postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User LoggedInUser = userRepository.findByEmail(authentication.getName()).get();
+        User LoggedInUser = userService.getLoggedInUser();
+
+        String imageurl = post.getImage();
 
         User userWhoCreatedPost = post.getUser();
         if (userWhoCreatedPost.equals(LoggedInUser)) {
             postRepository.deleteById(postId);
-        } else throw new RuntimeException("Not Authorized");
+            imageService.deleteImage(imageurl);
+        }
+        else throw new RuntimeException("Not Authorized");
 
     }
 
@@ -58,11 +62,9 @@ public class PostService {
         initialpost.setTitle(updatedPost.getTitle());
         initialpost.setContent(updatedPost.getContent());
         initialpost.setImage(updatedPost.getImage());
-        LocalDate today = LocalDate.now();
-       // initialpost.setUpdatedDate(valueOf(today));
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User LoggedInUser = userRepository.findByEmail(authentication.getName()).get();
+        User LoggedInUser = userService.getLoggedInUser();
+
 
         User userWhoCreatedPost = initialpost.getUser();
         if (userWhoCreatedPost.equals(LoggedInUser)) {

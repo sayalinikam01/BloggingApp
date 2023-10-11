@@ -4,27 +4,38 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateBlogComponent } from '../create-blog/create-blog.component';
 import Swal from 'sweetalert2';
+import {Post} from '../../models/post.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  blogPosts: any[] = [];
+  blogPosts:  Post[] = [];
 
-  constructor(private postService: PostService,private snackBar: MatSnackBar,public dialog: MatDialog) {}
+  constructor(private postService: PostService,private snackBar: MatSnackBar,public dialog: MatDialog,private router:Router) {}
 
 
   ngOnInit(): void {
-      this.postService.getPosts().subscribe(
-      (posts) => {
-            this.blogPosts=posts;
-            if (this.blogPosts.length==0) {this.NoPosts();}
-      },
-      (error)=>{
-            console.log("error");
-            this.NoPosts();
-      });
+      this.getPosts();
+  }
+
+
+  getPosts(){
+     this.postService.getPosts().subscribe(
+     (posts:any[]) => {
+        this.blogPosts=posts;
+        this.blogPosts.forEach(post => {
+        this.postService.getTotReactions(post);
+        this.postService.getReactionsStatus(post.postId,post);
+        }
+     );
+     },
+     (error)=>{
+         console.log("error");
+         this.NoPosts();
+     });
   }
 
   private NoPosts() {
@@ -32,24 +43,23 @@ export class DashboardComponent {
        duration: 5000, });
   }
 
-showPopup = false;
-openPopupForm() {
+
+  showPopup = false;
+  openPopupForm() {
       const dialogRef = this.dialog.open(CreateBlogComponent, {
         width: '800px',
-        height: '600px',
+        height: '600px',});
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.postService.getPosts().subscribe(
+            (posts:any[]) => {
+                this.blogPosts=posts;
+                this.blogPosts.forEach(post => {
+                this.postService.getTotReactions(post);}
+        ); } );
+
     });
+  }
 
-
-    dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-         setTimeout(() => {
-                        window.location.href="/feed";
-         }, 2000);
-
-
-
-      });
-
-    }
 
 }

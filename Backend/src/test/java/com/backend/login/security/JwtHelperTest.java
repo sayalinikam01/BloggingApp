@@ -28,7 +28,7 @@ class JwtHelperTest {
 
     @Test
     void testgenerateToken_Success() {
-        User user = new User("id123", "user@gmail.com", "password");
+        User user = new User("id123", "user@gmail.com","user","about me", "password");
 
         String token = jwtHelper.generateToken(user);
         String username = jwtHelper.getUsernameFromToken(token);
@@ -39,7 +39,7 @@ class JwtHelperTest {
 
     @Test
     void testvalidateToken() {
-        User user = new User("id123", "user@gmail.com", "password");
+        User user = new User("id123", "user@gmail.com","user","about me", "password");
         String token = jwtHelper.generateToken(user);
 
         Boolean result = jwtHelper.validateToken(token, user);

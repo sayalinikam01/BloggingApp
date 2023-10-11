@@ -20,9 +20,33 @@ mat-form-field {
 
 button[type="submit"] {
   align:center;
+  margin-left:3%;
+  margin-top:3%;
 }
 
 
 textarea {
   min-height: 250px;
 }
+
+.file-input {
+  display: none;
+}
+
+
+.file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+
+.file-label:hover {
+  background-color: #f4f4f4;
+}
+

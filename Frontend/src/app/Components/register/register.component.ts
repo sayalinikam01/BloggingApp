@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -13,7 +14,7 @@ export class RegisterComponent {
     aboutMe: '',
     password: ''
   };
-    constructor(private LoginService:LoginService,private snackBar: MatSnackBar) {}
+    constructor(private LoginService:LoginService,private snackBar: MatSnackBar,private router:Router) {}
 
 
 
@@ -23,8 +24,8 @@ export class RegisterComponent {
        (response:any)=>{
           this.openRegisterAlert("Registration Success,Redirecting to login");
           setTimeout(() => {
-                 window.location.href="/login";;
-              }, 2000);
+                 this.router.navigate(['/login']);
+              }, 1000);
 
           },
         error=>{

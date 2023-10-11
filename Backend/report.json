@@ -1,0 +1,105 @@
+{
+  "individualResults": [
+    {
+      "initialSchemaVersion": "2",
+      "targetSchemaVersion": null,
+      "schemaName": "",
+      "migrations": [],
+      "migrationsExecuted": 0,
+      "success": true,
+      "flywayVersion": "9.22.2",
+      "database": "bloggingApp",
+      "warnings": [],
+      "timestamp": "2023-10-08T12:37:32.284352500",
+      "operation": "migrate",
+      "exception": null,
+      "licenseFailed": false
+    },
+    {
+      "initialSchemaVersion": "2",
+      "targetSchemaVersion": null,
+      "schemaName": "",
+      "migrations": [],
+      "migrationsExecuted": 0,
+      "success": true,
+      "flywayVersion": "9.22.2",
+      "database": "bloggingApp",
+      "warnings": [],
+      "timestamp": "2023-10-08T12:40:55.471512500",
+      "operation": "migrate",
+      "exception": null,
+      "licenseFailed": false
+    },
+    {
+      "initialSchemaVersion": "2",
+      "targetSchemaVersion": null,
+      "schemaName": "",
+      "migrations": [],
+      "migrationsExecuted": 0,
+      "success": true,
+      "flywayVersion": "9.22.2",
+      "database": "bloggingApp",
+      "warnings": [],
+      "timestamp": "2023-10-08T12:44:27.257267800",
+      "operation": "migrate",
+      "exception": null,
+      "licenseFailed": false
+    },
+    {
+      "initialSchemaVersion": "2",
+      "targetSchemaVersion": null,
+      "schemaName": "",
+      "migrations": [],
+      "migrationsExecuted": 0,
+      "success": true,
+      "flywayVersion": "9.22.2",
+      "database": "bloggingApp",
+      "warnings": [],
+      "timestamp": "2023-10-08T12:45:28.513255100",
+      "operation": "migrate",
+      "exception": null,
+      "licenseFailed": false
+    },
+    {
+      "schemaVersion": "2",
+      "schemaName": "",
+      "migrations": [
+        {
+          "category": "",
+          "version": "1",
+          "rawVersion": "1",
+          "description": "\u003c\u003c Flyway Baseline \u003e\u003e",
+          "type": "BASELINE",
+          "installedOnUTC": "2023-10-04T09:54:59Z",
+          "state": "Baseline",
+          "undoable": "No",
+          "filepath": "",
+          "undoFilepath": "",
+          "installedBy": "root",
+          "executionTime": 0
+        },
+        {
+          "category": "Versioned",
+          "version": "2",
+          "rawVersion": "2",
+          "description": "reactiontable",
+          "type": "SQL",
+          "installedOnUTC": "2023-10-08T07:19:26Z",
+          "state": "Future",
+          "undoable": "No",
+          "filepath": "",
+          "undoFilepath": "",
+          "installedBy": "root",
+          "executionTime": 16
+        }
+      ],
+      "flywayVersion": "9.22.2",
+      "database": "bloggingapp",
+      "allSchemasEmpty": false,
+      "timestamp": "2023-10-08T12:54:40.695532400",
+      "operation": "info",
+      "exception": null,
+      "licenseFailed": false
+    }
+  ]
+}

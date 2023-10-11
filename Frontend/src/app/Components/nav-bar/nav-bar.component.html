@@ -1,48 +1,8 @@
-<!--<mat-toolbar color="primary">-->
-<!--  <mat-toolbar-row>-->
-<!--  <span> <a mat-icon-button routerLink="/"><mat-icon>article</mat-icon>-->
-<!--BloggingApp</a></span>-->
-<!--  <span class="spacer"></span>-->
-
-<!--  <a *ngIf="!LoggedIn" mat-icon-button routerLink="/register" class="btn"  >Register</a>-->
-<!--  <a *ngIf="!LoggedIn" mat-icon-button routerLink="/login" class="btn1"  >Login</a>-->
-<!--  <a *ngIf="LoggedIn" mat-icon-button class="btn"  routerLink="/myprofile">My Profile{{isMyProfilePage}}</a>-->
-<!--  <a *ngIf="LoggedIn" mat-icon-button class="btn"  routerLink="/feed">My Feed</a>-->
-<!--  <a *ngIf="LoggedIn" mat-icon-button class="btn1" (click)="logoutUser()"><mat-icon>logout</mat-icon></a>-->
-
-<!--  </mat-toolbar-row>-->
-<!--</mat-toolbar>-->
-
-<!--<app-navbar></app-navbar>-->
 
 <mat-toolbar style="background-color:rgba(1, 1, 1, 0.9); color:white;">
     <mat-toolbar-row>
-    <span> <a mat-icon-button routerLink="/"><mat-icon>article</mat-icon>
-  BloggingApp</a></span>
-        <span class="spacer"></span>
+    <mat-icon>article</mat-icon><div style="font-family:'Brush Script MT', cursive; font-size:30px; margin-left:10px;">
+  BloggingApp</div>
 
-        <a *ngIf="!LoggedIn" mat-icon-button routerLink="/register" class="btn"  >Register</a>
-        <a *ngIf="!LoggedIn" mat-icon-button routerLink="/login" class="btn1"  >Login</a>
     </mat-toolbar-row>
 </mat-toolbar>
-
-<mat-drawer-container class="example-container" style="height:90%;">
-  <mat-drawer color="primary" mode="side"  #drawer [opened]="LoggedIn" class="side-nav" >
-
-    <button class="btn-min-width-margin " color="basic" mat-button routerLink="/feed"  routerLinkActive="active-link"><mat-icon>home</mat-icon>Feed</button>
-
-
-      <button class="btn-min-width-margin " color="basic" mat-button routerLink="/myprofile"  routerLinkActive="active-link"><mat-icon>article</mat-icon>My Posts</button>
-
-
-      <button class="btn-min-width-margin" style="text-align:left;" color="basic"  mat-button routerLink="/userdetails"  routerLinkActive="active-link"><mat-icon>person</mat-icon>Profile</button>
-
-
-      <button class="btn-min-width-margin" color="basic"  mat-button (click)="logoutUser()"  routerLinkActive="active-link"><mat-icon>logout</mat-icon>Logout</button>
-   </mat-drawer>
-
-  <mat-drawer-content class="content" >
-    <router-outlet>
-    </router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>

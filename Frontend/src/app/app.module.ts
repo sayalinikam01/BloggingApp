@@ -28,6 +28,7 @@ import { UserDetailsComponent } from './Components/user-details/user-details.com
 import { RegisterComponent } from './Components/register/register.component';
 import { CommonModule } from '@angular/common';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { SideNavComponent } from './Components/side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     PostComponent,
     CreateBlogComponent,
     UserDetailsComponent,
-    RegisterComponent
+    RegisterComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,CommonModule,MatSidenavModule,
@@ -53,9 +55,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
   providers: [
 
                  {
-                   provide: HTTP_INTERCEPTORS, // Use the provide property to specify the token
-                   useClass: AuthInterceptor, // Specify the interceptor class
-                   multi: true, // Set multi to true because you're providing an array of interceptors
+                   provide: HTTP_INTERCEPTORS,
+                   useClass: AuthInterceptor,
+                   multi: true,
                  },
                ],
   bootstrap: [AppComponent]

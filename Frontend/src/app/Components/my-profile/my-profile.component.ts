@@ -3,8 +3,8 @@ import { PostService } from '../../services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateBlogComponent } from '../create-blog/create-blog.component';
-
-
+import {Post} from '../../models/post.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
@@ -12,26 +12,40 @@ import { CreateBlogComponent } from '../create-blog/create-blog.component';
 })
 export class MyProfileComponent {
 
-      blogPosts: any[] = [];
-      constructor(private postService: PostService,private snackBar: MatSnackBar,public dialog: MatDialog){
+      blogPosts: Post[] = [];
+      constructor(private postService: PostService,private snackBar: MatSnackBar,public dialog: MatDialog,private router:Router){
       }
+
       ngOnInit(): void {
-         this.postService.getPosts().subscribe(
-         (posts:any[]) => {
-              this.blogPosts=this.getPostsByUser(posts);
-              if (this.blogPosts.length==0) this.NoPosts();
-              //localStorage.setItem("totalPosts",this.blogPosts.length.toString());
-         },
-         (error)=>{
-              console.log("error");
-              this.NoPosts();
-         });
+        this.getPosts();
       }
 
 
-     getPostsByUser(posts:any[]) {
-           return posts.filter(post => post.user.email === localStorage.getItem("user"));
-     }
+    getPosts(){
+        this.postService.getPosts().subscribe(
+        (posts:any[]) => {
+            this.blogPosts=posts.filter(post => post.user.email === localStorage.getItem("user"));
+            this.blogPosts.forEach(post => {
+                 this.postService.getTotReactions(post);
+                 this.postService.getReactionsStatus(post.postId,post);
+            });
+            if (this.blogPosts.length==0) this.NoPosts();
+        },
+        (error)=>{
+             console.log("error");
+             this.NoPosts();
+       });
+
+    }
+
+    getTotReactions(post){
+         this.postService.getReactions(post.postId).subscribe(
+         (response:any)=>{
+             post.totLikes=response.likes;
+             post.totHearts=response.hearts;
+             post.totCelebration=response.celebration; },
+             error=>{ console.log("error:",error)});
+    }
 
      private NoPosts() {
          this.snackBar.open('No Posts Found', 'OK', {
@@ -49,10 +63,10 @@ export class MyProfileComponent {
 
     dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
-        window.location.href="/myprofile";
+ });
 
-      });
 
     }
+
 
 }

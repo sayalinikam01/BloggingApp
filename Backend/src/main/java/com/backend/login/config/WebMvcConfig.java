@@ -9,7 +9,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
          {
             registry.addResourceHandler("/uploads/**")
-                    .addResourceLocations("file:C://Users//sanika//OneDrive - SAS//Desktop//BloggingApp//BloggingApp//Backend//src//main//resources//static//uploads");
+                    .addResourceLocations("file:C://Users//sanika//OneDrive - SAS//Desktop//BloggingApp//BloggingApp//Backend//src//main//resources//static//uploads//");
         }
     }
 }

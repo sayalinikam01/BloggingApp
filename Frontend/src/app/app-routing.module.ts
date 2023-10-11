@@ -11,9 +11,11 @@ import { UserDetailsComponent } from './Components/user-details/user-details.com
 
 const routes: Routes = [
     {
-      path:'',
-      component:HomeComponent,
-      pathMatch:'full'
+
+          path: '',
+          redirectTo: '/login',
+          pathMatch: 'full',
+
     },
     {
        path:'login',
@@ -24,27 +26,25 @@ const routes: Routes = [
            path:'userdetails',
            component:UserDetailsComponent,
            pathMatch:'full',
-             canActivate:[authGuard]
+           canActivate:[authGuard]
     },
 
     {
        path:'register',
        component:RegisterComponent,
-       pathMatch:'full'
     },
     {
         path:'feed',
         component:DashboardComponent,
-        pathMatch:'full',
         data: { isMyFeedPage: true },
-        canActivate:[authGuard]
+        //canActivate:[authGuard]
     },
     {
          path:'myprofile',
          component:MyProfileComponent,
          data: { isMyProfilePage: true } ,
          pathMatch:'full',
-         canActivate:[authGuard]
+         //canActivate:[authGuard]
     },
 
 ];
