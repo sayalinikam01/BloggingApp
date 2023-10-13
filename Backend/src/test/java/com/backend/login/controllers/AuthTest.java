@@ -17,7 +17,8 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class AuthControllerTest {
+
+class AuthTest {
 
     @Mock
     private AuthenticationManager manager;
@@ -48,6 +49,8 @@ class AuthControllerTest {
 
         assertThrows(BadCredentialsException.class, () -> authController.doAuthenticate(email, password));
     }
+
+
 
 
 }

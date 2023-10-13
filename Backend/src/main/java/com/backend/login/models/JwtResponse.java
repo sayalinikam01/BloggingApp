@@ -1,7 +1,6 @@
 package com.backend.login.models;
 
 import lombok.*;
-import lombok.Builder;
 
 @Getter
 @Setter

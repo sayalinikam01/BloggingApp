@@ -7,9 +7,6 @@ import com.backend.login.models.JwtRequest;
 import com.backend.login.models.JwtResponse;
 import com.backend.login.repositories.UserRepository;
 import com.backend.login.security.JwtHelper;
-import jakarta.persistence.EntityNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,7 +68,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register")
-    public ResponseEntity<?>createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
         try {
             userService.createUser(user);
             return new ResponseEntity<>(Map.of("message", "User registered"), HttpStatus.OK);
@@ -81,11 +78,9 @@ public class AuthController {
     }
 
     @GetMapping("/getuser")
-    public ResponseEntity<?>getLoggedInUser() {
+    public ResponseEntity<?> getLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User LoggedInUser = userRepository.findByEmail(authentication.getName()).get();
-        Logger log=LoggerFactory.getLogger(AuthController.class);
-        log.info(LoggedInUser.toString());
         return new ResponseEntity<>(LoggedInUser, HttpStatus.OK);
     }
 

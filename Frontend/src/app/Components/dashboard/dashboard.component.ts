@@ -51,14 +51,14 @@ export class DashboardComponent {
         height: '600px',});
 
       dialogRef.afterClosed().subscribe(result => {
-        this.postService.getPosts().subscribe(
-            (posts:any[]) => {
-                this.blogPosts=posts;
-                this.blogPosts.forEach(post => {
-                this.postService.getTotReactions(post);}
-        ); } );
+      console.log("dashboard");
+       this.postService.getPosts().subscribe(
+                              (posts:any[]) => {
 
-    });
+                                 this.blogPosts.forEach(post => {
+                                 this.postService.getTotReactions(post);}
+                              ); } );
+              });
   }
 
 

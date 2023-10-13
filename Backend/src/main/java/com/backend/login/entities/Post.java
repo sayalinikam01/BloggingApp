@@ -6,7 +6,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Getter
@@ -16,16 +15,16 @@ import java.sql.Timestamp;
 @ToString
 @Entity
 @Builder
-@Table(name="post")
+@Table(name = "post")
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
 
     @Id
-    @Column(name="postId")
+    @Column(name = "postId")
     private String postId;
 
     @ManyToOne()
-    @JoinColumn(name="userId")
+    @JoinColumn(name = "userId")
     private User user;
 
     private String title;

@@ -2,6 +2,7 @@ package com.backend.login.controllers;
 
 import com.backend.login.Services.ImageService;
 import com.backend.login.Services.PostService;
+import com.backend.login.Services.SentimentAnalysisService;
 import com.backend.login.entities.Post;
 import com.backend.login.repositories.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping()
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class PostController {
     @Autowired
     private PostService postService;
@@ -28,11 +29,21 @@ public class PostController {
     @Autowired
     public ImageService imageService;
 
+    @Autowired
+    private SentimentAnalysisService sentimentAnalysisService;
+    Logger logger = LoggerFactory.getLogger(PostController.class);
+
     @PostMapping("/posts")
     public ResponseEntity<?> createPost(@RequestBody Post newPost) {
-        postService.createPost(newPost);
-        Logger log= LoggerFactory.getLogger(PostController.class);
-        log.info("called");
+
+        String sentiment = sentimentAnalysisService.analyzeSentiment(newPost.getContent());
+
+        if ("Negative".equals(sentiment)) {
+            return new ResponseEntity<>(Map.of("message", "Negative posts not allowed. Please revise your post."), HttpStatus.BAD_REQUEST);
+        } else {
+            postService.createPost(newPost);
+        }
+        logger.info(sentiment);
 
         return new ResponseEntity<>(Map.of("message", "Post Created"), HttpStatus.OK);
     }
@@ -40,7 +51,8 @@ public class PostController {
 
     @GetMapping("/posts")
     public ResponseEntity<?> getPosts() {
-        List<Post> allPosts = postRepository.findTop10ByOrderByCreatedDateDesc();;
+        List<Post> allPosts = postRepository.findTop10ByOrderByCreatedDateDesc();
+        ;
         if (allPosts.isEmpty()) return new ResponseEntity<>(Map.of("message", "No Posts Found"), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(allPosts, HttpStatus.OK);
     }
@@ -60,7 +72,13 @@ public class PostController {
     @PutMapping("/posts/{postId}")
     public ResponseEntity<?> updatePost(@RequestBody Post updatedPost, @PathVariable("postId") String postId) {
         try {
-            postService.updatePost(updatedPost, postId);
+            String sentiment = sentimentAnalysisService.analyzeSentiment(updatedPost.getContent());
+            if ("Negative".equals(sentiment)) {
+                return new ResponseEntity<>(Map.of("message", "Negative posts not allowed. Please revise your post."), HttpStatus.BAD_REQUEST);
+            } else {
+                postService.updatePost(updatedPost, postId);
+            }
+            logger.info(sentiment);
             return new ResponseEntity<>(Map.of("message", "Post Updated"), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(Map.of("message", "Post Not Found"), HttpStatus.BAD_REQUEST);
@@ -70,9 +88,10 @@ public class PostController {
 
     }
 
-    @GetMapping("/posts/{postId}")
-    public void getPostbyId(@PathVariable("postId") String postId) {
-        postRepository.findById(postId);
-    }
+//    @GetMapping("/posts/{postId}")
+//    public void getPostbyId(@PathVariable("postId") String postId) {
+//        postRepository.findById(postId);
+//    }
+
 
 }

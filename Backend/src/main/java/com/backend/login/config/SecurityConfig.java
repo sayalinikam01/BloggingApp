@@ -5,6 +5,7 @@ import com.backend.login.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -41,6 +42,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth//.requestMatchers("/home/**").authenticated()
                         .requestMatchers("/posts/**").permitAll()
                         .requestMatchers("/getuser").permitAll()
+                        .requestMatchers("/v3/api-docs.yaml", "/swagger-ui/index.html", "/v3/api-docs", "/webjars/**").permitAll()
+
                         .requestMatchers("/post/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/auth/login").permitAll()

@@ -1,11 +1,15 @@
-import { Component,Input ,OnInit,EventEmitter ,Output} from '@angular/core';
+import { Component,Input ,ChangeDetectorRef ,OnInit,EventEmitter ,Output} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute,Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateBlogComponent} from '../create-blog/create-blog.component'
+import {MyProfileComponent } from '../my-profile/my-profile.component';
+import { CreateBlogComponent} from '../create-blog/create-blog.component';
 import { DatePipe } from '@angular/common';
 import {Post} from '../../models/post.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -18,14 +22,25 @@ export class PostComponent {
 
     isMyProfilePage!: boolean;
     formattedDate: string="";
-
+  private postsSubject = new BehaviorSubject<Post[]>(this.blogPosts);
 
     constructor(public dialog: MatDialog,private route: ActivatedRoute,private router: Router,private postService:PostService,private snackBar: MatSnackBar) {
       this.isMyProfilePage = this.route.snapshot.data['isMyProfilePage'];
+
     }
 
-    ngOnInit():void{
-    }
+   ngOnInit(): void {
+
+
+        }
+
+
+
+       private NoPosts() {
+           this.snackBar.open('No Posts Found', 'OK', {
+           duration: 5000, });
+       }
+
 
   formatDate(date: any): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -48,26 +63,26 @@ export class PostComponent {
         this.DeletedMsg();
     }
 
-
-    updatePost(postToUpdate){
+   updatePost(postToUpdate,postId){
         console.log(postToUpdate);
         const dialogRef = this.dialog.open(CreateBlogComponent, {
                width: '800px',
                 height: '600px',
                 data:postToUpdate,
         });
+
+
+
      dialogRef.afterClosed().subscribe(result => {
+//         setTimeout(() => {
+//            window.location.href = '/myposts'; // Replace with the desired URL
+//         }, 1000);
 
-         this.postService.getPosts().subscribe(
-           (posts:any[]) => {
-              this.blogPosts=posts.filter(post => post.user.email === localStorage.getItem("user"));
-              this.blogPosts.forEach(post => {
-              this.postService.getTotReactions(post);}
-           ); } );
+ } );
 
-
-        });
     }
+
+
 
      private deletePostFrontend(postId: String) {
            const index = this.blogPosts.findIndex(post => post.postId === postId);

@@ -10,6 +10,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
          {
             registry.addResourceHandler("/uploads/**")
                     .addResourceLocations("file:C://Users//sanika//OneDrive - SAS//Desktop//BloggingApp//BloggingApp//Backend//src//main//resources//static//uploads//");
-        }
+
+
+         }
     }
 }

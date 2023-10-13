@@ -3,12 +3,13 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <div class="text-center">
-          <h1 class="text-center" style="color:#673ab7; margin-bottom:5%; font-size: 50px;   font-family:'Brush Script MT', cursive;">Blogging App</h1>        </div>
+          <h1 class="text-center" style="color:#673ab7; margin-bottom:5%; font-size: 50px;  ">IDeaS Insights</h1>        </div>
         <form (ngSubmit)="register()">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Email</mat-label>
-            <input type="text" matInput required name="email" [(ngModel)]="registrationData.email"/>
+            <input type="text" matInput required name="email" [(ngModel)]="registrationData.email" email="true"/>
           </mat-form-field>
+
 
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Name</mat-label>

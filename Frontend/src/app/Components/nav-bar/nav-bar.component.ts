@@ -1,6 +1,6 @@
 import { Component,OnInit,ViewChild  } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import { ActivatedRoute } from '@angular/router';
+// import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 
 
@@ -14,7 +14,7 @@ export class NavBarComponent implements OnInit
 
     public LoggedIn =false;
 
-   constructor(private LoginService:LoginService,private route: ActivatedRoute,private router: Router) {
+   constructor(private LoginService:LoginService,private router: Router) {
 
    }
 

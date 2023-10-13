@@ -1,8 +1,6 @@
 package com.backend.login.entities;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.*;
 
 
@@ -12,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name="reaction_entries")
+@Table(name = "reaction_entries")
 public class Reaction {
     @Id
     @Column(name = "id")
@@ -33,8 +31,6 @@ public class Reaction {
         this.userId = userId;
         this.reactionId = reactionId;
     }
-
-
 
 
 }

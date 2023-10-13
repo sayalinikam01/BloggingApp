@@ -37,14 +37,14 @@ const routes: Routes = [
         path:'feed',
         component:DashboardComponent,
         data: { isMyFeedPage: true },
-        //canActivate:[authGuard]
+        canActivate:[authGuard]
     },
     {
-         path:'myprofile',
+         path:'myposts',
          component:MyProfileComponent,
          data: { isMyProfilePage: true } ,
          pathMatch:'full',
-         //canActivate:[authGuard]
+         canActivate:[authGuard]
     },
 
 ];

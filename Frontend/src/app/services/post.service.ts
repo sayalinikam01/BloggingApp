@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute,Router } from '@angular/router';
 import {Post}  from '../models/post.model';
 import { map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ import { map } from 'rxjs/operators';
 export class PostService {
   url="http://localhost:8081"
 
-  constructor(private http:HttpClient,private router: Router) { }
+  constructor(private http:HttpClient,private router: Router,private snackBar: MatSnackBar) { }
 
   getPosts():Observable<any[]>{
           return this.http.get<any[]>(`${this.url}/posts`)
@@ -23,9 +26,11 @@ export class PostService {
       this.http.post(`${this.url}/posts`,formData).subscribe(
         (response) => {
           console.log('Response from the server:', response);
+            Swal.fire('Post Created!');
         },
         (error) => {
           console.error('Error:', error);
+          Swal.fire("Negative posts not allowed. Please revise your post. Post cannot be published");
         }
       );
  }
@@ -44,8 +49,13 @@ export class PostService {
           this.http.put(`${this.url}/posts/${PostId}`,formData).subscribe(
              (response) => {
                 console.log('Response from the server:', response);
+                this.snackBar.open('Post Updated', 'OK', {
+                            duration: 5000, });
+                //this.router.navigate(["/myposts"])
+
              },
              error => {
+              Swal.fire("Negative posts not allowed. Please revise your post. Post cannot be edited");
              console.error('Error updating post:', error);
              });
          }

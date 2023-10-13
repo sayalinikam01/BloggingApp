@@ -28,10 +28,10 @@ p {
 }
 
 .create-blog-button button {
-  width:85%;
+  width:70%;
   font-weight: bold;
-  margin-left:20%;
-    border-radius: 20px;
+  margin-left:25%;
+  border-radius: 20px;
 
 }
 

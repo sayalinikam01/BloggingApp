@@ -20,7 +20,6 @@ export class MyProfileComponent {
         this.getPosts();
       }
 
-
     getPosts(){
         this.postService.getPosts().subscribe(
         (posts:any[]) => {
@@ -54,19 +53,21 @@ export class MyProfileComponent {
 
     showPopup = false;
 
-    openPopupForm() {
-      const dialogRef = this.dialog.open(CreateBlogComponent, {
-        width: '800px',
-        height: '600px',
-    });
 
-
-    dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
- });
-
-
-    }
+//     openPopupForm() {
+//       const dialogRef = this.dialog.open(CreateBlogComponent, {
+//         width: '800px',
+//         height: '600px',
+//     });
+//
+//
+//     dialogRef.afterClosed().subscribe(result => {
+//
+//         console.log('The dialog was closed');
+//  });
+//
+//
+//     }
 
 
 }

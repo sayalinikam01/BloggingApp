@@ -2,7 +2,7 @@
 <mat-card class="create-blog-card">
 
   <mat-card-content>
-    <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()" >
       <mat-form-field >
         <input matInput placeholder="Title" name="title" [(ngModel)]="formData.title" required>
       </mat-form-field>

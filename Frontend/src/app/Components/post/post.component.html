@@ -4,7 +4,7 @@
         <mat-card-header>
           <span class="material-icons" style="border-style: solid; border-radius: 50%; border-width: 2px; padding: 3px;color:#673ab7;font-size:25px; margin-right:10px;"> person </span>
           &nbsp;{{this.posts.user.name}}<br>{{formatDate(posts.createdDate)}}<span class="spacer"></span>
-          <button type="submit" mat-icon-button color="primary"  aria-label="Edit Post" *ngIf="isMyProfilePage" (click)="updatePost(this.posts)">
+          <button type="submit" mat-icon-button color="primary"  aria-label="Edit Post" *ngIf="isMyProfilePage" (click)="updatePost(this.posts,this.posts.postId)">
             <mat-icon color="primary" >edit</mat-icon></button>
           <button type="submit" mat-icon-button color="primary"  aria-label="Delete Post" *ngIf="isMyProfilePage" (click)="deletePostById(this.posts.postId)"  >
             <mat-icon color="primary" >delete</mat-icon></button>
@@ -14,12 +14,12 @@
 
 <!--      <img mat-card-lg-image [src]="'http://localhost:8081' + this.posts.image" alt="Post Image" class="post-image"  style="  background-size: cover;"/>-->
 
-      <mat-card-content class="blog-content" >
-                <p>{{ this.posts.content }}</p>
+      <mat-card-content class="blog-content"  [innerHTML]="this.posts.content" >
+<!--                <p>{{ this.posts.content }}</p>-->
 
         </mat-card-content>
 
-      <img mat-card-image [src]="'http://localhost:8081' + this.posts.image" alt="Post Image">
+      <img mat-card-image [src]="'http://localhost:8081' + this.posts.image" onerror="this.onerror=null;" alt="">
 
 
       <!--     <div class="image-wrapper">-->
