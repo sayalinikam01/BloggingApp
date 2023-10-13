@@ -1,0 +1,202 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PostController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backend.login.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: PostController (com.backend.login.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PostController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    70.4%
+  </span>
+  <span class="absValue">
+    (19/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backend.login.controllers;
+&nbsp;
+&nbsp;import com.backend.login.Services.ImageService;
+&nbsp;import com.backend.login.Services.PostService;
+&nbsp;import com.backend.login.Services.SentimentAnalysisService;
+&nbsp;import com.backend.login.entities.Post;
+&nbsp;import com.backend.login.repositories.PostRepository;
+&nbsp;import jakarta.persistence.EntityNotFoundException;
+&nbsp;import org.slf4j.Logger;
+&nbsp;import org.slf4j.LoggerFactory;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping()
+&nbsp;@CrossOrigin(origins=&quot;*&quot;)
+<b class="fc">&nbsp;public class PostController {</b>
+&nbsp;    @Autowired
+&nbsp;    private PostService postService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private PostRepository postRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    public ImageService imageService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private SentimentAnalysisService sentimentAnalysisService;
+<b class="fc">&nbsp;    Logger logger= LoggerFactory.getLogger(PostController.class);</b>
+&nbsp;    @PostMapping(&quot;/posts&quot;)
+&nbsp;    public ResponseEntity&lt;?&gt; createPost(@RequestBody Post newPost) {
+&nbsp;
+<b class="fc">&nbsp;        String sentiment=sentimentAnalysisService.analyzeSentiment(newPost.getContent());</b>
+&nbsp;
+<b class="fc">&nbsp;        if (&quot;Negative&quot;.equals(sentiment)) {</b>
+<b class="nc">&nbsp;           return new ResponseEntity&lt;&gt;(Map.of(&quot;message&quot;, &quot;Negative posts not allowed. Please revise your post.&quot;), HttpStatus.BAD_REQUEST);</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            postService.createPost(newPost);</b>
+&nbsp;        }
+<b class="fc">&nbsp;         logger.info(sentiment );</b>
+&nbsp;
+<b class="fc">&nbsp;        return new ResponseEntity&lt;&gt;(Map.of(&quot;message&quot;, &quot;Post Created&quot;), HttpStatus.OK);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @GetMapping(&quot;/posts&quot;)
+&nbsp;    public ResponseEntity&lt;?&gt; getPosts() {
+<b class="fc">&nbsp;        List&lt;Post&gt; allPosts = postRepository.findTop10ByOrderByCreatedDateDesc();;</b>
+<b class="fc">&nbsp;        if (allPosts.isEmpty()) return new ResponseEntity&lt;&gt;(Map.of(&quot;message&quot;, &quot;No Posts Found&quot;), HttpStatus.NOT_FOUND);</b>
+<b class="fc">&nbsp;        return new ResponseEntity&lt;&gt;(allPosts, HttpStatus.OK);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;/posts/{postId}&quot;)
+&nbsp;    public ResponseEntity&lt;?&gt; deletePost(@PathVariable(&quot;postId&quot;) String postId) {
+&nbsp;        try {
+<b class="fc">&nbsp;            postService.deletePost(postId);</b>
+<b class="fc">&nbsp;            return new ResponseEntity&lt;&gt;(Map.of(&quot;message&quot;, &quot;Post Deleted&quot;), HttpStatus.OK);</b>
+<b class="fc">&nbsp;        } catch (EntityNotFoundException e) {</b>
+<b class="fc">&nbsp;            return new ResponseEntity&lt;&gt;(&quot;Post Not Found&quot;, HttpStatus.BAD_REQUEST);</b>
+<b class="nc">&nbsp;        } catch (RuntimeException e) {</b>
+<b class="nc">&nbsp;            return new ResponseEntity&lt;&gt;(e.getMessage(), HttpStatus.UNAUTHORIZED);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/posts/{postId}&quot;)
+&nbsp;    public ResponseEntity&lt;?&gt; updatePost(@RequestBody Post updatedPost, @PathVariable(&quot;postId&quot;) String postId) {
+&nbsp;        try {
+<b class="fc">&nbsp;            String sentiment=sentimentAnalysisService.analyzeSentiment(updatedPost.getContent());</b>
+<b class="fc">&nbsp;            if (&quot;Negative&quot;.equals(sentiment)) {</b>
+<b class="nc">&nbsp;                return new ResponseEntity&lt;&gt;(Map.of(&quot;message&quot;, &quot;Negative posts not allowed. Please revise your post.&quot;), HttpStatus.BAD_REQUEST);</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="fc">&nbsp;                postService.updatePost(updatedPost, postId);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            logger.info(sentiment );</b>
+<b class="fc">&nbsp;            return new ResponseEntity&lt;&gt;(Map.of(&quot;message&quot;, &quot;Post Updated&quot;), HttpStatus.OK);</b>
+<b class="nc">&nbsp;        } catch (EntityNotFoundException e) {</b>
+<b class="nc">&nbsp;            return new ResponseEntity&lt;&gt;(Map.of(&quot;message&quot;, &quot;Post Not Found&quot;), HttpStatus.BAD_REQUEST);</b>
+<b class="nc">&nbsp;        } catch (RuntimeException e) {</b>
+<b class="nc">&nbsp;            return new ResponseEntity&lt;&gt;(e.getMessage(), HttpStatus.UNAUTHORIZED);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;//    @GetMapping(&quot;/posts/{postId}&quot;)
+&nbsp;//    public void getPostbyId(@PathVariable(&quot;postId&quot;) String postId) {
+&nbsp;//        postRepository.findById(postId);
+&nbsp;//    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-12 00:12</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ReactionService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backend.login.Services</a>
+</div>
+
+<h1>Coverage Summary for Class: ReactionService (com.backend.login.Services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ReactionService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backend.login.Services;
+&nbsp;
+&nbsp;import com.backend.login.entities.Reaction;
+&nbsp;import com.backend.login.entities.User;
+&nbsp;import com.backend.login.repositories.ReactionRepository;
+&nbsp;import com.backend.login.repositories.UserRepository;
+&nbsp;import org.slf4j.Logger;
+&nbsp;import org.slf4j.LoggerFactory;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.security.core.Authentication;
+&nbsp;import org.springframework.security.core.context.SecurityContextHolder;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.UUID;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class ReactionService {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private  UserRepository userRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    UserService userService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private ReactionRepository reactionRepository;
+&nbsp;    public int addReaction(String postId, int reactionId) {
+&nbsp;
+<b class="fc">&nbsp;        User LoggedInUser = userService.getLoggedInUser();</b>
+&nbsp;
+<b class="fc">&nbsp;        Reaction react=new Reaction();</b>
+<b class="fc">&nbsp;        react.setPostId(String.valueOf(postId));</b>
+<b class="fc">&nbsp;        react.setUserId(String.valueOf(LoggedInUser.getUserId()));</b>
+<b class="fc">&nbsp;        react.setReactionId(reactionId);</b>
+<b class="fc">&nbsp;        if(reactionRepository.existsByPostIdAndUserIdAndReactionId(String.valueOf(postId),String.valueOf(LoggedInUser.getUserId()),reactionId))</b>
+<b class="fc">&nbsp;            throw new RuntimeException(&quot;Cannot react multiple times&quot;);</b>
+<b class="fc">&nbsp;        reactionRepository.save(react);</b>
+<b class="fc">&nbsp;        return reactionRepository.countByPostIdAndReactionId(postId, reactionId);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-12 00:12</div>
+</div>
+</body>
+</html>

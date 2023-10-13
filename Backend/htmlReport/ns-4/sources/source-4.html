@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ReactionsController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.backend.login.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: ReactionsController (com.backend.login.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ReactionsController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (12/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.backend.login.controllers;
+&nbsp;
+&nbsp;import com.backend.login.Services.ReactionService;
+&nbsp;import com.backend.login.Services.UserService;
+&nbsp;import com.backend.login.entities.Post;
+&nbsp;import com.backend.login.entities.User;
+&nbsp;import com.backend.login.repositories.ReactionRepository;
+&nbsp;import com.backend.login.repositories.UserRepository;
+&nbsp;import org.slf4j.Logger;
+&nbsp;import org.slf4j.LoggerFactory;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.security.core.Authentication;
+&nbsp;import org.springframework.security.core.context.SecurityContextHolder;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/post&quot;)
+&nbsp;@CrossOrigin(origins=&quot;*&quot;)
+<b class="fc">&nbsp;public class ReactionsController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private ReactionService reactionService;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private ReactionRepository reactionRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private UserRepository userRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private UserService userService;;
+&nbsp;
+&nbsp;    @PostMapping(&quot;/{postId}/reaction/{reactionId}&quot;)
+&nbsp;    public ResponseEntity&lt;?&gt; addReaction(@PathVariable(&quot;postId&quot;) String postId,@PathVariable(&quot;reactionId&quot;) int reactionId) {
+&nbsp;        try{
+<b class="fc">&nbsp;            int totalReactions=reactionService.addReaction(postId,reactionId);</b>
+<b class="fc">&nbsp;            return new ResponseEntity&lt;&gt;(Map.of(&quot;count&quot;, totalReactions,&quot;message&quot;, &quot;Reaction added&quot;), HttpStatus.OK);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        catch (RuntimeException e) {</b>
+<b class="nc">&nbsp;            return new ResponseEntity&lt;&gt;(e.getMessage(), HttpStatus.CONFLICT);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{postId}/totReaction&quot;)
+&nbsp;    public ResponseEntity&lt;?&gt; totReaction(@PathVariable(&quot;postId&quot;) String postId) {
+<b class="fc">&nbsp;        int totalLikes=reactionRepository.countByPostIdAndReactionId(postId,1);</b>
+<b class="fc">&nbsp;        int totalHearts=reactionRepository.countByPostIdAndReactionId(postId,2);</b>
+<b class="fc">&nbsp;        int totalCelebration=reactionRepository.countByPostIdAndReactionId(postId,3);</b>
+<b class="fc">&nbsp;        return new ResponseEntity&lt;&gt;(Map.of(&quot;likes&quot;, totalLikes,&quot;hearts&quot;,totalHearts,&quot;celebration&quot;,totalCelebration), HttpStatus.OK);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{postId}/getReaction&quot;)
+&nbsp;    public ResponseEntity&lt;?&gt; IsReaction(@PathVariable(&quot;postId&quot;) String postId) {
+&nbsp;
+<b class="fc">&nbsp;        User LoggedInUser = userService.getLoggedInUser();</b>
+&nbsp;
+<b class="fc">&nbsp;        boolean isLiked=reactionRepository.existsByPostIdAndUserIdAndReactionId(String.valueOf(postId),String.valueOf(LoggedInUser.getUserId()),1);</b>
+<b class="fc">&nbsp;        boolean isHeart=reactionRepository.existsByPostIdAndUserIdAndReactionId(String.valueOf(postId),String.valueOf(LoggedInUser.getUserId()),2);</b>
+<b class="fc">&nbsp;        boolean isCelebrate=reactionRepository.existsByPostIdAndUserIdAndReactionId(String.valueOf(postId),String.valueOf(LoggedInUser.getUserId()),3);</b>
+&nbsp;
+<b class="fc">&nbsp;        return new ResponseEntity&lt;&gt;(Map.of(&quot;like&quot;, isLiked,&quot;hearts&quot;,isHeart,&quot;celebration&quot;,isCelebrate), HttpStatus.OK);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-10-12 00:12</div>
+</div>
+</body>
+</html>
